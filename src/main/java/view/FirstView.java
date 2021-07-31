@@ -1,0 +1,42 @@
+package view;
+
+import java.util.Scanner;
+
+public class FirstView {
+
+    private final static Scanner scanner = new Scanner(System.in);
+
+    public static final String WRITERS = "writers";
+    public static final String POSTS = "posts";
+    public static final String REGIONS = "regions";
+
+
+
+
+    public static DefaultView getView () {
+
+        System.out.println("Напишите имя папки куда хотите зайти \n" +
+                "writers\n" +
+                "posts\n" +
+                "regions\n");
+
+
+        String type = scanner.next();
+
+        switch (type) {
+
+            case WRITERS:
+                return WriterView.getInstance();
+
+            case POSTS:
+                return PostView.getInstance();
+
+            case REGIONS:
+                return RegionView.getInstance();
+
+            default:
+                System.out.println("Недопустимый аргумент для типа экземпляра " + type + "\n");
+                return getView();
+        }
+    }
+}
