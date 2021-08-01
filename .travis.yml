@@ -1,0 +1,12 @@
+language: java
+
+#Обычный режим для быстрой сборки
+sudo: false
+
+notifications:
+  email:
+    recipients:
+      - kadyrow1506@gmail.com
+
+        on_success: never
+        on_failure: always

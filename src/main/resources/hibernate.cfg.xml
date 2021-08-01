@@ -17,10 +17,10 @@
             jdbc:postgresql://localhost:5432/postgres
         </property>
         <property name="hibernate.connection.username">
-            postgres
+            login
         </property>
         <property name="hibernate.connection.password">
-            legolas1998
+            passsword
         </property>
 
     </session-factory>

@@ -16,7 +16,7 @@ public class HibernateSessionFactoryWriter {
         if (sessionFactory == null) {
 
             Flyway flyway = Flyway.configure().dataSource("jdbc:postgresql://localhost:5432/postgres",
-                    "postgres", "legolas1998").load();
+                    "login", "password").load();
             flyway.migrate();
             try {
                 Configuration configuration = new Configuration().configure();
