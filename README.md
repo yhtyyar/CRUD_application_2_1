@@ -1,6 +1,10 @@
 # CRUD_application_2_1
 
 <a href="https://travis-ci.com/yhtyyar/CRUD_application_2_1"><img src="https://travis-ci.com/yhtyyar/CRUD_application_2_1.svg?branch=master"></a>
+<a href="https://www.codefactor.io/repository/github/yhtyyar/crud_application_2_1"><img src="https://www.codefactor.io/repository/github/yhtyyar/crud_application_2_1/badge" alt="CodeFactor" /></a>
+
+
+
 
 # Задание:
 
