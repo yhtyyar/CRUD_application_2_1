@@ -1,6 +1,5 @@
 package controller;
 
-import model.Region;
 import model.Writer;
 import service.WriterService;
 import service.impl.WriterServiceImpl;
@@ -19,12 +18,12 @@ public class WriterController {
         return writerService.getById(id);
     }
 
-    public Writer create(String firstName, String lastName) {
-        return writerService.create(firstName, lastName);
+    public Writer create(String firstName, String lastName, String regionName) {
+        return writerService.create(firstName, lastName,  regionName);
     }
 
-    public Writer update(Long id, String firstName, String lastName, Region region) {
-        return writerService.update(id, firstName, lastName, region);
+    public Writer update(Long id, String firstName, String lastName, String regionName) {
+        return writerService.update(id, firstName, lastName, regionName);
     }
 
     public void deleteById(Long id) {

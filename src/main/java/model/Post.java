@@ -29,9 +29,18 @@ public class Post {
     public Post() {
     }
 
+    public Post(Long id) {
+        this.id = id;
+    }
 
     public Post(String content) {
         this.content = content;
+    }
+
+    public Post(Writer writer, LocalDateTime created, LocalDateTime updated) {
+        this.writer = writer;
+        this.created = created;
+        this.updated = updated;
     }
 
     public Post(Writer writer, String content, LocalDateTime created, LocalDateTime updated) {
@@ -92,6 +101,15 @@ public class Post {
 
     @Override
     public String toString() {
-        return "  " + id + " | " + writer + " | " + created + " | " + updated + " | " + content;
+
+        Long writerId = 0L;
+
+        if (writer != null ) {
+
+            writerId = writer.getId();
+        }
+        return "  " + id + " | " + writerId + " | " + created + " | " + updated + " | " + content;
+
+
     }
 }

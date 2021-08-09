@@ -41,6 +41,12 @@ public class Writer {
         this.lastName = lastName;
     }
 
+    public Writer(String firstName, String lastName, Region region) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.region = region;
+    }
+
     public Writer(Long id, String firstName, String lastName, Region region) {
         this.id = id;
         this.firstName = firstName;
@@ -103,13 +109,24 @@ public class Writer {
 
         StringBuilder postBuilder = new StringBuilder();
 
-        for (Post post : posts) {
-            postBuilder.append(post.getContent()).append(" | ");
+        if (posts != null) {
+            for (Post post : posts) {
+                postBuilder.append(post.getContent()).append(" | ");
+            }
+
+            return "  " + id + " | " + firstName + " | " + lastName +
+                    " | " + region.getRegionName() + " | " + postBuilder;
+
+        } else {
+
+            return "  " + id + " | " + firstName + " | " + lastName +
+                    " | " + region.getRegionName() + " | " + "нет записи";
+
         }
 
 
-        return "  " + id + " | " + firstName + " | " + lastName +
-                " | " + region.getRegionName() + " | " + postBuilder;
+
+
 
     }
 }

@@ -50,18 +50,18 @@ public class PostServiceImplTest {
     }
 
 
-    @Test
-    public void createTest() {
-        doReturn(postRepository.create(writer, content)).when(postService).create(writer, content);
-        assertEquals(postRepository.create(writer, content), postService.create(writer, content));
-    }
-
-
-    @Test
-    public void updateTest() {
-        doReturn(postRepository.update(id, writer, content)).when(postService).update(id, writer, content);
-        assertEquals(postRepository.update(id, writer, content), postService.update(1L, writer, content));
-    }
+//    @Test
+//    public void createTest() {
+//        doReturn(postRepository.create(writer, content)).when(postService).create(writer, content);
+//        assertEquals(postRepository.create(writer, content), postService.create(writer, content));
+//    }
+//
+//
+//    @Test
+//    public void updateTest() {
+//        doReturn(postRepository.update(id, writer, content)).when(postService).update(id, writer, content);
+//        assertEquals(postRepository.update(id, writer, content), postService.update(1L, writer, content));
+//    }
 
 
     @Test

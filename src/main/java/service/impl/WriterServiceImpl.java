@@ -23,14 +23,14 @@ public class WriterServiceImpl implements WriterService {
 
 
     @Override
-    public Writer create(String firstName, String lastName) {
-        return writerRepository.create(firstName, lastName);
+    public Writer create(String firstName, String lastName, String regionName) {
+        return writerRepository.create(firstName, lastName, regionName);
     }
 
 
     @Override
-    public Writer update(Long id, String firstName, String lastName, Region region) {
-        return writerRepository.update(id, firstName, lastName, region);
+    public Writer update(Long id, String firstName, String lastName, String regionName) {
+        return writerRepository.update(id, firstName, lastName, regionName);
     }
 
 

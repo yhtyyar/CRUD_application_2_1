@@ -59,11 +59,11 @@ public class WriterServiceImplTest {
     }
 
 
-    @Test
-    public void createTest() {
-        doReturn(writer).when(writerService).create("Sergey", "Dovlatov");
-        assertEquals(writer, writerService.create("Sergey", "Dovlatov"));
-    }
+//    @Test
+//    public void createTest() {
+//        doReturn(writer).when(writerService).create("Sergey", "Dovlatov");
+//        assertEquals(writer, writerService.create("Sergey", "Dovlatov"));
+//    }
 
 
 //    @Test

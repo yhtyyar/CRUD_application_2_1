@@ -1,7 +1,6 @@
 package controller;
 
 import model.Post;
-import model.Writer;
 import service.PostService;
 import service.impl.PostServiceImpl;
 
@@ -19,11 +18,11 @@ public class PostController {
         return postService.getById(id);
     }
 
-    public Post create(Writer writerId, String content) {
+    public Post create(Long writerId, String content) {
         return postService.create(writerId, content);
     }
 
-    public Post update(Long id, Writer writerId, String content) {
+    public Post update(Long id, Long writerId, String content) {
         return postService.update(id, writerId, content);
     }
 

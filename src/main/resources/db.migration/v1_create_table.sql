@@ -1,3 +1,12 @@
+
+CREATE TABLE IF NOT EXISTS "regions"
+(
+    id          BIGSERIAL,
+    region_name CHARACTER VARYING(50) DEFAULT 'Регион не указан' UNIQUE,
+    CONSTRAINT regions_pkey PRIMARY KEY (id)
+);
+
+
 CREATE TABLE IF NOT EXISTS "writers"
 (
     id         BIGSERIAL,
@@ -6,14 +15,15 @@ CREATE TABLE IF NOT EXISTS "writers"
     region_id  BIGINT,
     CONSTRAINT writers_pkey PRIMARY KEY (id),
     CONSTRAINT fk_writer_region FOREIGN KEY (region_id)
-    REFERENCES regions MATCH FULL
-    );
+        REFERENCES regions MATCH FULL
+);
+
 
 CREATE TABLE IF NOT EXISTS "posts"
 (
     id        BIGSERIAL,
     writer_id BIGINT                 NOT NULL,
-    content   CHARACTER VARYING(260) NOT NULL DEFAULT 'Нет записи',
+    content   CHARACTER VARYING(260) DEFAULT 'Нет записи',
     created   TIMESTAMP,
     updated   TIMESTAMP,
     CONSTRAINT posts_pkey PRIMARY KEY (id),
@@ -22,9 +32,3 @@ CREATE TABLE IF NOT EXISTS "posts"
     ON UPDATE NO ACTION ON DELETE NO ACTION
     );
 
-CREATE TABLE IF NOT EXISTS "regions"
-(
-    id          BIGSERIAL,
-    region_name CHARACTER VARYING(50) NOT NULL DEFAULT 'Регион не указан' UNIQUE,
-    CONSTRAINT regions_pkey PRIMARY KEY (id)
-    );

@@ -1,7 +1,6 @@
 package view;
 
 import controller.WriterController;
-import model.Region;
 import model.Writer;
 
 import java.io.PrintStream;
@@ -26,10 +25,11 @@ public class WriterView extends DefaultView{
 
         int firstName = 1;
         int lastName = 2;
+        int region = 3;
 
-        if (command.length == 3) {
+        if (command.length == 4) {
 
-            Writer writer = writerController.create(command[firstName], command[lastName]);
+            Writer writer = writerController.create(command[firstName], command[lastName], command[region]);
             try {
                 System.out.println(" ID |  Имя  |  Фамилия  |   Страна  |   Записи   |\n");
                 System.out.println(writer.toString() + "\n");
@@ -38,7 +38,7 @@ public class WriterView extends DefaultView{
             } catch (NumberFormatException e) {
                 System.out.println("Неверная команда создания " + CREATE);
             }
-        } else if (command.length > 3) {
+        } else if (command.length > 4) {
 
             System.out.println("Вы ввели больше данных чем нужно");
 
@@ -63,7 +63,7 @@ public class WriterView extends DefaultView{
 
             try {
                 Writer writer = writerController.update(Long.valueOf(command[id]), command[firstName],
-                        command[lastName], new Region(command[region]));
+                        command[lastName], command[region]);
                 System.out.println(" ID |  Имя  |  Фамилия  |   Страна  |   Записи   |\n");
                 System.out.println(writer.toString() + "\n");
                 System.out.println("... Изменения внесены ... ");
@@ -139,10 +139,10 @@ public class WriterView extends DefaultView{
     void deleteRecord(String[] command) {
 
         if (command.length == 2) {
-            System.out.println("... Удаление данных писателя ...");
 
             try {
                 writerController.deleteById(Long.valueOf(command[1]));
+                System.out.println("... Данные писателя удалены ...");
 
             } catch (NumberFormatException e) {
                 System.out.println("Неправильная команда " + DELETE);
@@ -150,6 +150,7 @@ public class WriterView extends DefaultView{
             } catch (NoSuchElementException e) {
                 System.out.println("Такого писателя нет(неправильный ID)");
             }
+
 
         } else if (command.length > 2) {
 

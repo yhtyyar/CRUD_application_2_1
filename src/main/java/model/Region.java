@@ -71,12 +71,17 @@ public class Region {
 
         StringBuilder writerBuilder = new StringBuilder();
 
-        for (Writer writer : writerList) {
-            writerBuilder.append(writer.getId()).append(" | ");
+        if (writerList != null) {
+            for (Writer writer : writerList) {
+                writerBuilder.append(writer.getFirstName()).append(" ").append(writer.getLastName()).append(" | ");
+            }
+            return "  " + id + " |  " + regionName + " | " + writerBuilder;
+
+        } else {
+
+            return "  " + id + " |  " + regionName + " | " + "в этом регионе нет никаких писателей";
         }
 
-
-        return "  " + id + " |  " + regionName + " | " + writerList;
     }
 
 }

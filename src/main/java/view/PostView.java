@@ -2,7 +2,6 @@ package view;
 
 import controller.PostController;
 import model.Post;
-import model.Writer;
 
 import java.io.PrintStream;
 import java.util.List;
@@ -35,7 +34,7 @@ public class PostView extends DefaultView{
 
             try {
 
-                Post post = postController.create(new Writer(Long.valueOf(command[writerId])), content.toString());
+                Post post = postController.create(Long.valueOf(command[writerId]), content.toString());
                 System.out.println(" ID | ID писателя | Время создания | Время изменения |  Текст  | \n");
 
                 System.out.println(post.toString() + "\n");
@@ -69,7 +68,7 @@ public class PostView extends DefaultView{
             System.out.println("... Изменение записи ...");
             try {
 
-                Post post =  postController.update(Long.valueOf(command[id]),new Writer(Long.valueOf(command[writerId])),
+                Post post =  postController.update(Long.valueOf(command[id]),Long.valueOf(command[writerId]),
                         content.toString());
                 System.out.println(" ID | ID писателя | Время создания | Время изменения |  Текст  | \n");
 

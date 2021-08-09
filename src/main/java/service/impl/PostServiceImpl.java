@@ -1,7 +1,6 @@
 package service.impl;
 
 import model.Post;
-import model.Writer;
 import repository.PostRepository;
 import repository.impl.PostRepositoryImpl;
 import service.PostService;
@@ -23,13 +22,13 @@ public class PostServiceImpl implements PostService {
 
 
     @Override
-    public Post create(Writer writerId, String content) {
+    public Post create(Long writerId, String content) {
         return postRepository.create(writerId, content);
     }
 
 
     @Override
-    public Post update(Long id, Writer writerId, String content) {
+    public Post update(Long id, Long writerId, String content) {
         return postRepository.update(id, writerId, content);
     }
 
