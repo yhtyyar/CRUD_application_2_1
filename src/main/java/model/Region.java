@@ -1,20 +1,21 @@
 package model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
-@Table(name = "regions", schema = "public")
+@Table(name = "regions")
 public class Region {
 
+
     @Id
-    @SequenceGenerator(name = "region_seq", sequenceName = "region_region_id_seq", allocationSize = 0)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "region_seq")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "writer_id")
-    private Writer writer;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "region", cascade = CascadeType.ALL)
+    private List<Writer> writerList;
 
     @Column(name = "region_name")
     private String regionName;
@@ -29,15 +30,14 @@ public class Region {
     }
 
 
-    public Region(Writer writer, String regionName) {
-        this.writer = writer;
+
+    public Region (String regionName) {
         this.regionName = regionName;
     }
 
 
-    public Region(Long id, Writer writer, String regionName) {
+    public Region(Long id, String regionName) {
         this.id = id;
-        this.writer = writer;
         this.regionName = regionName;
     }
 
@@ -49,12 +49,12 @@ public class Region {
         return id;
     }
 
-    public Writer getWriter() {
-        return writer;
+    public List<Writer> getWriterList() {
+        return writerList;
     }
 
-    public void setWriter(Writer writer) {
-        this.writer = writer;
+    public void setWriterList(List<Writer> writerList) {
+        this.writerList = writerList;
     }
 
     public void setRegionName(String regionName) {
@@ -68,7 +68,15 @@ public class Region {
 
     @Override
     public String toString() {
-        return "  " + id + " |  " + regionName + " | " + writer;
+
+        StringBuilder writerBuilder = new StringBuilder();
+
+        for (Writer writer : writerList) {
+            writerBuilder.append(writer.getId()).append(" | ");
+        }
+
+
+        return "  " + id + " |  " + regionName + " | " + writerList;
     }
 
 }

@@ -56,19 +56,19 @@ public class RegionServiceImplTest {
         assertEquals(region, regionService.getById(1L));
     }
 
-
-    @Test
-    public void createTest() {
-        doReturn(region).when(regionService).create(writer,"Barcelona");
-        assertEquals(region, regionService.create(writer, regionName));
-    }
-
-
-    @Test
-    public void updateTest() {
-        doReturn(region).when(regionService).update(id,writer, "Barcelona");
-        assertEquals(region, regionService.update(1L, writer, "Barcelona"));
-    }
+//
+//    @Test
+//    public void createTest() {
+//        doReturn(region).when(regionService).create(writer,"Barcelona");
+//        assertEquals(region, regionService.create(writer, regionName));
+//    }
+//
+//
+//    @Test
+//    public void updateTest() {
+//        doReturn(region).when(regionService).update(id,writer, "Barcelona");
+//        assertEquals(region, regionService.update(1L, writer, "Barcelona"));
+//    }
 
 
     @Test

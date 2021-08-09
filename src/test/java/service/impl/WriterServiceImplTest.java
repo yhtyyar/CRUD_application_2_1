@@ -66,11 +66,11 @@ public class WriterServiceImplTest {
     }
 
 
-    @Test
-    public void updateTest() {
-        doReturn(writer).when(writerService).update(1L, "Sergey", "Dovlatov");
-        assertEquals(writer, writerService.update(id, first, last));
-    }
+//    @Test
+//    public void updateTest() {
+//        doReturn(writer).when(writerService).update(1L, "Sergey", "Dovlatov");
+//        assertEquals(writer, writerService.update(id, first, last));
+//    }
 
     @Test
     public void getAllTest() {

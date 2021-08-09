@@ -4,13 +4,12 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "writers", schema = "public")
+@Table(name = "writers")
 public class Writer {
 
 
     @Id
-    @SequenceGenerator(name = "writer_seq", sequenceName = "writer_writer_id_seq", allocationSize = 0)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "writer_seq")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
@@ -20,10 +19,11 @@ public class Writer {
     @Column(name = "last_name")
     private String lastName;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "writer", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "writer", cascade = CascadeType.ALL)
     private List<Post> posts;
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "writer", cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "region_id")
     private Region region;
 
 
@@ -41,6 +41,12 @@ public class Writer {
         this.lastName = lastName;
     }
 
+    public Writer(Long id, String firstName, String lastName, Region region) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.region = region;
+    }
 
     public Writer(Long id, String firstName, String lastName, Region region, List<Post> posts) {
         this.id = id;
@@ -103,7 +109,7 @@ public class Writer {
 
 
         return "  " + id + " | " + firstName + " | " + lastName +
-                " | " + region + " | " + postBuilder;
+                " | " + region.getRegionName() + " | " + postBuilder;
 
     }
 }

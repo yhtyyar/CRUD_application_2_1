@@ -2,7 +2,6 @@ package view;
 
 import controller.RegionController;
 import model.Region;
-import model.Writer;
 
 import java.io.PrintStream;
 import java.util.List;
@@ -23,16 +22,15 @@ public class RegionView extends DefaultView{
     void createNewRecord(String[] command) {
 
         int regionName = 1;
-        int writerId = 2;
 
-        if (command.length == 3) {
-            Region region = regionController.create(new Writer(Long.valueOf(command[writerId])), command[regionName]);
+        if (command.length == 2) {
+            Region region = regionController.create(command[regionName]);
 
-            System.out.println("'ID' | 'ID писателя' | 'Название региона' |  \n");
+            System.out.println("'ID' | 'Название региона' | 'ID писателей' |  \n");
             System.out.println(region.toString() + "\n");
             System.out.println("... Страна добавлена ...");
 
-        } else if (command.length > 3){
+        } else if (command.length > 2){
 
             System.out.println("Вы ввели больше данных чем нужно");
 
@@ -47,15 +45,13 @@ public class RegionView extends DefaultView{
 
         int id = 1;
         int regionName = 2;
-        int writerId = 3;
 
-        if (command.length == 4) {
+        if (command.length == 3) {
             System.out.println("... Изменение записи ... \n");
             try {
                 Region region = regionController.update(Long.valueOf(command[id]),
-                        new Writer(Long.valueOf(command[writerId])),
                         command[regionName]);
-                System.out.println("'ID' | 'ID писателя' | 'Название региона' |  \n");
+                System.out.println("'ID' | 'Название региона' | 'ID писателей' |   \n");
                 System.out.println(region.toString() + "\n");
                 System.out.println("... Страна изменена ...");
 
@@ -66,7 +62,7 @@ public class RegionView extends DefaultView{
                 System.out.println("В списке нет такой страны ");
 
             }
-        } else if (command.length > 4){
+        } else if (command.length > 3){
 
             System.out.println("Вы ввели больше данных чем нужно");
 
@@ -86,7 +82,7 @@ public class RegionView extends DefaultView{
             try {
 
                 Region region = regionController.getById(Long.valueOf(command[1]));
-                System.out.println("'ID' | 'ID писателя' | 'Название региона' |  \n");
+                System.out.println("'ID' | 'Название региона' | 'ID писателей' |   \n");
                 System.out.println(region.toString() + "\n");
 
             } catch (NumberFormatException e) {
@@ -116,7 +112,7 @@ public class RegionView extends DefaultView{
             List<Region> regionList = regionController.getAll();
 
             if (regionList.size() > 0) {
-                System.out.println("'ID' | 'ID писателя' | 'Название региона'|  \n");
+                System.out.println("'ID' | 'Название региона' | 'ID писателей' |   \n");
 
                 regionList.forEach((r) -> System.out.println((r.toString())));
 
@@ -161,10 +157,10 @@ public class RegionView extends DefaultView{
     void helpMe() {
 
         System.out.println("          Список команд для действий: \n\n" +
-                CREATE + " 'ID писателя' 'название региона'  - добавить новую страну в список\n" +
+                CREATE + " 'название региона'  - добавить новую страну в список\n" +
                 GET_BY_ID + " 'ID' - получить название страны по ID \n" +
                 GET_ALL + " - получение всех стран из списка \n" +
-                EDIT_BY_ID + " 'ID' 'ID писателя' 'название региона'  - изменение существующей страны \n" +
+                EDIT_BY_ID + " 'ID' 'название региона'  - изменение существующей страны \n" +
                 DELETE + " 'ID' - удаление страны по ID \n" +
                 BACK_TO_BEGINNING + " - вернуться в начало программы\n" +
                 EXIT + " - выход из программы\n");

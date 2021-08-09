@@ -4,17 +4,16 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "posts", schema = "public")
+@Table(name = "posts")
 public class Post {
 
 
     @Id
-    @SequenceGenerator(name = "post_seq", sequenceName = "post_post_id_seq", allocationSize = 0)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "post_seq")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "writer_id")
     private Writer writer;
 

@@ -1,57 +1,76 @@
 package repository.impl;
 
-import model.Post;
+import model.Region;
 import model.Writer;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import repository.WriterRepository;
-import repository.hibernate_utils.HibernateSessionFactoryWriter;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+
+import static repository.impl.SQLRequests.*;
 
 public class WriterRepositoryImpl implements WriterRepository {
 
+    private Transaction transaction;
 
     @Override
     public Writer getById(Long id) {
-        return HibernateSessionFactoryWriter.getSessionFactory().openSession().get(Writer.class, id);
+        return HibernateSessionFactory.getSessionFactory().openSession().get(Writer.class, id);
     }
 
 
     @Override
     public Writer create(String firstName, String lastName) {
 
-        Session session = HibernateSessionFactoryWriter.getSessionFactory().openSession();
-        Transaction transaction = session.beginTransaction();
+        Writer writer = new Writer();
 
-        Post post = new Post();
-        post.setCreated(LocalDateTime.now());
-        post.setUpdated(LocalDateTime.now());
+        try (Session session = HibernateSessionFactory.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
 
-        Integer writerId = (Integer) session.save(new Writer(firstName, lastName));
-        Writer writer = session.get(Writer.class, writerId);
-        transaction.commit();
-        session.close();
+            Long writerId = (Long) session.save(new Writer(firstName, lastName));
+
+            session.createSQLQuery(String.format(WRITER_CREATE_POST, writerId,
+                    Timestamp.valueOf(LocalDateTime.now()), Timestamp.valueOf(LocalDateTime.now())));
+
+            session.createSQLQuery(String.format(WRITER_CREATE_REGION, writerId));
+
+            writer = session.get(Writer.class, writerId);
+            transaction.commit();
+
+        } catch (HibernateException e) {
+            transaction.rollback();
+        }
 
         return writer;
     }
 
 
     @Override
-    public Writer update(Long id, String firstName, String lastName) {
+    public Writer update(Long id, String firstName, String lastName, Region region) {
 
-        Session session = HibernateSessionFactoryWriter.getSessionFactory().openSession();
-        Transaction transaction = session.beginTransaction();
+        Writer writerResult = new Writer();
 
-        Writer writer = session.get(Writer.class, id);
-        writer.setFirstName(firstName);
-        writer.setLastName(lastName);
+        try (Session session = HibernateSessionFactory.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
 
-        session.update(writer);
-        Writer writerResult = session.get(Writer.class, id);
-        transaction.commit();
-        session.close();
+            Writer writer = session.get(Writer.class, id);
+            writer.setFirstName(firstName);
+            writer.setLastName(lastName);
+            writer.setRegion(region);
+
+            session.update(writer);
+
+            writerResult = session.get(Writer.class, id);
+            transaction.commit();
+
+        } catch (HibernateException e) {
+            transaction.rollback();
+        }
 
         return writerResult;
     }
@@ -60,28 +79,37 @@ public class WriterRepositoryImpl implements WriterRepository {
     @Override
     public void deleteById(Long id) {
 
-        Session session = HibernateSessionFactoryWriter.getSessionFactory().openSession();
-        Transaction transaction = session.beginTransaction();
+        try (Session session = HibernateSessionFactory.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
 
-        Writer writer = session.get(Writer.class, id);
+            Writer writer = session.get(Writer.class, id);
 
-        session.delete(writer);
-        transaction.commit();
-        session.close();
+            session.delete(writer);
+            transaction.commit();
+
+        } catch (HibernateException e) {
+            transaction.rollback();
+        }
+
     }
 
 
     @Override
     public List<Writer> getAll() {
 
-        Session session = HibernateSessionFactoryWriter.getSessionFactory().openSession();
-        Transaction transaction = session.beginTransaction();
+        List<Writer> writerList = new ArrayList<>();
 
-        List<Writer> writerList = session.createQuery("SELECT W.id, W.firstName, W.lastName, W.region, " +
-                "W.posts FROM Writer AS W", Writer.class).list();
+        try (Session session = HibernateSessionFactory.getSessionFactory().openSession()){
+            transaction = session.beginTransaction();
 
-        transaction.commit();
-        session.close();
+            writerList = session.createQuery("SELECT W.id, W.firstName, W.lastName, W.region, " +
+                    "W.posts FROM Writer AS W ", Writer.class).list();
+
+            transaction.commit();
+
+        } catch (HibernateException e) {
+            transaction.rollback();
+        }
 
         return writerList;
     }

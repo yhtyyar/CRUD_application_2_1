@@ -1,6 +1,7 @@
 package view;
 
 import controller.WriterController;
+import model.Region;
 import model.Writer;
 
 import java.io.PrintStream;
@@ -54,14 +55,15 @@ public class WriterView extends DefaultView{
         int id = 1;
         int firstName = 2;
         int lastName = 3;
+        int region = 4;
 
-        if (command.length == 4) {
+        if (command.length == 5) {
 
             System.out.println("... Изменение записи писателя ...");
 
             try {
                 Writer writer = writerController.update(Long.valueOf(command[id]), command[firstName],
-                        command[lastName]);
+                        command[lastName], new Region(command[region]));
                 System.out.println(" ID |  Имя  |  Фамилия  |   Страна  |   Записи   |\n");
                 System.out.println(writer.toString() + "\n");
                 System.out.println("... Изменения внесены ... ");
@@ -71,7 +73,7 @@ public class WriterView extends DefaultView{
             } catch (NoSuchElementException e) {
                 System.out.println("Такой записи нет");
             }
-        } else if (command.length > 4){
+        } else if (command.length > 5){
 
             System.out.println("Вы ввели больше данных чем нужно");
 
