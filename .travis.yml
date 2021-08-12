@@ -5,7 +5,6 @@
   ],
   "dist": "xenial",
   "jdk": [
-      "-oraclejdk8"
+      "-jdk8"
   ],
-  "sudo": false
 }
