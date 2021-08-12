@@ -38,7 +38,21 @@ public class WriterView extends DefaultView{
             } catch (NumberFormatException e) {
                 System.out.println("Неверная команда создания " + CREATE);
             }
-        } else if (command.length > 4) {
+
+        } else if (command.length == 3){
+
+            Writer writer = writerController.create(command[firstName], command[lastName], command[firstName]
+                    + " регион не установил");
+            try {
+                System.out.println(" ID |  Имя  |  Фамилия  |   Страна  |   Записи   |\n");
+                System.out.println(writer.toString() + "\n");
+                System.out.println("Новый писатель создан!");
+
+            } catch (NumberFormatException e) {
+                System.out.println("Неверная команда создания " + CREATE);
+            }
+
+        }else if (command.length > 4) {
 
             System.out.println("Вы ввели больше данных чем нужно");
 

@@ -21,7 +21,7 @@ public class WriterServiceImplTest {
     private static final Long id = 1L;
     private static final String first = "Sergey";
     private static final String last = "Dovlatov";
-
+    private static final String region = "Asia";
 
 
     @Mock
@@ -30,7 +30,7 @@ public class WriterServiceImplTest {
     @Mock
     private List<Writer> writerList;
 
-    @Spy
+    @Mock
     private WriterService writerService;
 
 
@@ -59,18 +59,18 @@ public class WriterServiceImplTest {
     }
 
 
-//    @Test
-//    public void createTest() {
-//        doReturn(writer).when(writerService).create("Sergey", "Dovlatov");
-//        assertEquals(writer, writerService.create("Sergey", "Dovlatov"));
-//    }
+    @Test
+    public void createTest() {
+        doReturn(writer).when(writerService).create("Sergey", "Dovlatov", region);
+        assertEquals(writer, writerService.create("Sergey", "Dovlatov", region));
+    }
 
 
-//    @Test
-//    public void updateTest() {
-//        doReturn(writer).when(writerService).update(1L, "Sergey", "Dovlatov");
-//        assertEquals(writer, writerService.update(id, first, last));
-//    }
+    @Test
+    public void updateTest() {
+        doReturn(writer).when(writerService).update(1L, "Sergey", "Dovlatov", region);
+        assertEquals(writer, writerService.update(id, first, last, region));
+    }
 
     @Test
     public void getAllTest() {

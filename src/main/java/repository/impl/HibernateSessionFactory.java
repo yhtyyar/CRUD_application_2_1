@@ -8,6 +8,10 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
+
 public class HibernateSessionFactory {
 
     private static SessionFactory sessionFactory;
@@ -15,10 +19,20 @@ public class HibernateSessionFactory {
     private HibernateSessionFactory() {}
 
     public static SessionFactory getSessionFactory() {
+
+        Properties properties = new Properties();
+
+        try {
+            properties.load(new FileInputStream("src/main/resources/application.properties"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
         if (sessionFactory == null) {
 
-            Flyway flyway = Flyway.configure().dataSource("jdbc:postgresql://localhost:5432/postgres",
-                    "postgres", "legolas1998").load();
+            Flyway flyway = Flyway.configure().dataSource(properties.getProperty("url"),
+                    properties.getProperty("username"), properties.getProperty("password")).load();
             flyway.baseline();
             flyway.migrate();
 

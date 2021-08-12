@@ -74,7 +74,7 @@ public class RegionRepositoryImpl implements RegionRepository {
     @Override
     public void deleteById(Long id) {
 
-        try ( Session session = HibernateSessionFactory.getSessionFactory().openSession()) {
+        try (Session session = HibernateSessionFactory.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
 
             Region region = session.get(Region.class, id);
