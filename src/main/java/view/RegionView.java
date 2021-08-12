@@ -26,7 +26,7 @@ public class RegionView extends DefaultView{
         if (command.length == 2) {
             Region region = regionController.create(command[regionName]);
 
-            System.out.println("'ID' | 'Название региона' | 'ID писателей' |  \n");
+            System.out.println("'ID' | 'Название региона' | 'Имя и фамилия писателя' |  \n");
             System.out.println(region.toString() + "\n");
             System.out.println("... Страна добавлена ...");
 
@@ -51,7 +51,7 @@ public class RegionView extends DefaultView{
             try {
                 Region region = regionController.update(Long.valueOf(command[id]),
                         command[regionName]);
-                System.out.println("'ID' | 'Название региона' | 'ID писателей' |   \n");
+                System.out.println("'ID' | 'Название региона' | 'Имя и фамилия писателя' |   \n");
                 System.out.println(region.toString() + "\n");
                 System.out.println("... Страна изменена ...");
 
@@ -82,7 +82,7 @@ public class RegionView extends DefaultView{
             try {
 
                 Region region = regionController.getById(Long.valueOf(command[1]));
-                System.out.println("'ID' | 'Название региона' | 'ID писателей' |   \n");
+                System.out.println("'ID' | 'Название региона' | 'Имя и фамилия писателя' |   \n");
                 System.out.println(region.toString() + "\n");
 
             } catch (NumberFormatException e) {
@@ -112,7 +112,7 @@ public class RegionView extends DefaultView{
             List<Region> regionList = regionController.getAll();
 
             if (regionList.size() > 0) {
-                System.out.println("'ID' | 'Название региона' | 'ID писателей' |   \n");
+                System.out.println("'ID' | 'Название региона' | 'Имя и фамилия писателя' |   \n");
 
                 regionList.forEach((r) -> System.out.println((r.toString())));
 

@@ -102,14 +102,6 @@ public class Post {
     @Override
     public String toString() {
 
-        Long writerId = 0L;
-
-        if (writer != null ) {
-
-            writerId = writer.getId();
-        }
-        return "  " + id + " | " + writerId + " | " + created + " | " + updated + " | " + content;
-
-
+        return "  " + id + " | " + writer.getId() + " | " + created + " | " + updated + " | " + content;
     }
 }
