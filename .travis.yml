@@ -5,6 +5,6 @@
   ],
   "dist": "xenial",
   "jdk": [
-      "-jdk8"
+      "-openjdk8"
   ],
 }
