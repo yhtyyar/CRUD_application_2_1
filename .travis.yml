@@ -1,7 +1,8 @@
-language: java
-jdk:
-  -oraclejdk8
-
-#Обычный режим для быстрой сборки
-sudo: false
+{
+  "language": "java",
+  "jdk": [
+      "-oraclejdk8"
+  ],
+  "sudo": false
+}
 
